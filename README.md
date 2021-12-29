@@ -21,12 +21,6 @@
 3.  使用 [luogu-motaki-plan-editor](https://github.com/ouuan/luogu-motaki-plan-editor) 将图片转为 `motaki-plan.json`，放在 server 所在的目录下；
 4.  `pnpm run start`
 
-### 使用可执行文件
-
-1.  在 [Releases](https://github.com/ouuan/luogu-motaki-server/releases) 中下载可执行文件；
-2.  使用 [luogu-motaki-plan-editor](https://github.com/ouuan/luogu-motaki-plan-editor) 将图片转为 `motaki-plan.json`；
-3.  在 `motaki-plan.json` 所在的目录运行 `luogu-motaki-server`。
-
 ## 配置
 
 配置通过环境变量修改。
