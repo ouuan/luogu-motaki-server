@@ -8,7 +8,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [12, 13, 14, 15, 16, 17]
+        node-version: [14, 16, 17]
     name: Node v${{ matrix.node-version }}
     steps:
       - uses: actions/checkout@v2
