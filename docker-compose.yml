@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  app:
+    image: ouuan/luogu-motaki-server
+    restart: always
+    volumes:
+      - ./motaki-plan.json:/app/motaki-plan.json
+    ports:
+      - 15762:15762
