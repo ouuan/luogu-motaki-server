@@ -1,0 +1,4 @@
+node_modules/
+motaki-plan.json
+*.log
+dist/
