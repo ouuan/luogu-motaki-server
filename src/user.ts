@@ -1,4 +1,3 @@
-import { exhaustiveCheck } from 'ts-exhaustive-check';
 import { JobStatus } from './types';
 
 export default class User {
@@ -13,26 +12,11 @@ export default class User {
   blockedUntil = 0;
 
   update(type: JobStatus) {
-    switch (type) {
-      case 'success':
-        this.success += 1;
-        break;
-      case 'failed':
-        this.failed += 1;
-        break;
-      case 'unverified':
-        this.unverified += 1;
-        break;
-      case 'error':
-        this.error += 1;
-        break;
-      default:
-        exhaustiveCheck(type);
-    }
-
-    const now = new Date().valueOf();
+    this[type] += 1;
 
     if (type !== 'success') {
+      const now = new Date().valueOf();
+
       if (this.blockedUntil < now) this.blockedUntil = now;
 
       const total = this.success + this.failed + this.unverified + this.error;

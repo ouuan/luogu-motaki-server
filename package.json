@@ -21,7 +21,6 @@
     "fast-shuffle": "^4.5.1",
     "fastify": "^3.25.2",
     "sleep-promise": "^9.1.0",
-    "ts-exhaustive-check": "^1.0.0",
     "ws": "^8.4.0"
   },
   "devDependencies": {
