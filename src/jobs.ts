@@ -97,11 +97,7 @@ export default class Jobs {
     if (status !== 'success') {
       const { board } = this;
       if (board && board.board[x]?.[y] !== board.planCol[x]?.[y]) {
-        const name = board.taskName[x][y];
-        if (name) {
-          const node = { x, y, cnt: board.paintCnt[x][y] } as const;
-          if (!board.avl[name].contains(node)) board.avl[name].insert(node);
-        }
+        if (board.avlNode[x][y] === null) board.insertAvl(x, y);
       }
     }
 

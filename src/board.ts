@@ -6,6 +6,7 @@ import { Coordinate, Paint, Plan } from './types';
 
 interface Node extends Coordinate {
   cnt: number;
+  random: number;
 }
 
 export default class Board {
@@ -21,14 +22,30 @@ export default class Board {
 
   avl: { [name: string]: AVLTree<Node, null> } = {};
 
+  avlNode = Array.from(Array(WIDTH), () => Array<Node|null>(HEIGHT).fill(null));
+
   taskName = Array.from(Array(WIDTH), () => Array<string|null>(HEIGHT).fill(null));
 
   planCol = Array.from(Array(WIDTH), () => Array<number|null>(HEIGHT).fill(null));
+
+  insertAvl(x: number, y: number) {
+    const name = this.taskName[x][y];
+    if (!name) return;
+    const node = {
+      x,
+      y,
+      random: Math.random(),
+      cnt: this.paintCnt[x][y],
+    };
+    this.avlNode[x][y] = node;
+    this.avl[name].insert(node);
+  }
 
   constructor(plan: Plan, public jobs: Jobs) {
     Object.entries(plan).forEach(([name, task]) => {
       this.avl[name] = new AVLTree<Node, null>((lhs, rhs) => {
         if (lhs.cnt !== rhs.cnt) return lhs.cnt - rhs.cnt;
+        if (lhs.random !== rhs.random) return lhs.random - rhs.random;
         if (lhs.x !== rhs.x) return lhs.x - rhs.x;
         return lhs.y - rhs.y;
       });
@@ -42,20 +59,22 @@ export default class Board {
           }
           this.taskName[x][y] = name;
           this.planCol[x][y] = parseInt(lines[dx][dy], 32);
-          this.avl[name].insert({ x, y, cnt: 0 });
+          this.insertAvl(x, y);
         }
       }
     });
   }
 
   private updateCnt(x: number, y: number, newCnt: number) {
+    this.paintCnt[x][y] = newCnt;
     const name = this.taskName[x][y];
     if (name) {
-      if (this.avl[name].remove({ x, y, cnt: this.paintCnt[x][y] })) {
-        this.avl[name].insert({ x, y, cnt: newCnt });
+      const node = this.avlNode[x][y];
+      if (node) {
+        this.avl[name].remove(node);
+        this.insertAvl(x, y);
       }
     }
-    this.paintCnt[x][y] = newCnt;
   }
 
   private doPaint({ x, y, col }: Paint) {
@@ -71,12 +90,8 @@ export default class Board {
 
     if (this.planCol[x][y] === col) {
       this.jobs.markPainted({ x, y, col });
-    } else {
-      const name = this.taskName[x][y];
-      const node: Node = { x, y, cnt: this.paintCnt[x][y] };
-      if (name && !this.avl[name].contains(node) && this.jobs.job[x][y] === null) {
-        this.avl[name].insert(node);
-      }
+    } else if (this.avlNode[x][y] === null && this.jobs.job[x][y] === null) {
+      this.insertAvl(x, y);
     }
   }
 
