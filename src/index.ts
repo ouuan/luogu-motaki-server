@@ -1,6 +1,5 @@
 import Fastify from 'fastify';
 import { readFile } from 'fs/promises';
-import { join } from 'path';
 import { Plan } from './types';
 import newJob from './newJob';
 import Board from './board';
@@ -16,7 +15,7 @@ readFile('motaki-plan.json').then((buffer) => {
 
   const server = Fastify({
     logger: {
-      file: join(__dirname, 'server.log'),
+      file: 'server.log',
       serializers: {
         req(request) {
           return {
