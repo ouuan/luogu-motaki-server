@@ -11,7 +11,7 @@
   "private": true,
   "scripts": {
     "lint:nofix": "eslint . --ignore-path .gitignore --ext .ts",
-    "lint": "lint:nofix --fix",
+    "lint": "pnpm lint:nofix --fix",
     "build": "tsc",
     "postinstall": "ts-patch install -s"
   },
