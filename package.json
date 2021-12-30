@@ -20,7 +20,7 @@
     "avl": "^1.5.3",
     "axios": "^0.24.0",
     "fast-shuffle": "^4.5.1",
-    "fastify": "^3.25.2",
+    "fastify": "^3.25.3",
     "sleep-promise": "^9.1.0",
     "ws": "^8.4.0"
   },
