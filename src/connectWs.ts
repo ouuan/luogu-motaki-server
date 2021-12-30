@@ -1,11 +1,14 @@
+import { FastifyLoggerInstance } from 'fastify';
 import { WebSocket } from 'ws';
 import Board from './board';
-import { WS_URL } from './constants';
+import { WS_TIMEOUT, WS_URL } from './constants';
 
-export default function connectWs(board: Board) {
+export default function connectWs(board: Board, logger: FastifyLoggerInstance) {
   const ws = new WebSocket(WS_URL);
+  const waitForStarted = setTimeout(() => ws.terminate(), WS_TIMEOUT);
 
   ws.on('open', () => {
+    clearTimeout(waitForStarted);
     ws.send({
       type: 'join_channel',
       channel: 'paintboard',
@@ -19,4 +22,12 @@ export default function connectWs(board: Board) {
       board.paint({ x, y, col });
     }
   });
+
+  ws.on('close', () => {
+    clearTimeout(waitForStarted);
+    logger.error(`WebSocket connection closed. Reconnecting in ${WS_TIMEOUT / 1000} seconds...`);
+    setTimeout(() => connectWs(board, logger), WS_TIMEOUT);
+  });
+
+  ws.on('error', (err) => logger.error(`WebSocket Error: ${err}`));
 }
