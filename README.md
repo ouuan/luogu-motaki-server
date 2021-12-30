@@ -17,7 +17,7 @@
 需要 Node.js v14 以上，最好是 v16 或 v17。
 
 1.  `git clone https://github.com/ouuan/luogu-motaki-server`
-2.  `cd luogu-motaki-server && pnpm i && pnmp build`
+2.  `cd luogu-motaki-server && pnpm i && pnpm build`
 3.  使用 [luogu-motaki-plan-editor](https://github.com/ouuan/luogu-motaki-plan-editor) 将图片转为 `motaki-plan.json`，放在 server 所在的目录下；
 4.  `node .`
 
