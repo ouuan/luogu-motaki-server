@@ -28,6 +28,7 @@ readFile('motaki-plan.json').then((buffer) => {
         },
       },
     },
+    trustProxy: true,
   });
 
   const users = new Map<string, User>();
