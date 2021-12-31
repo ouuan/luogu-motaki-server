@@ -23,7 +23,7 @@ export default class User {
 
       const total = this.success + this.failed + this.unverified + this.error;
 
-      if (total <= 10) return;
+      if (total <= 100) return;
 
       const errorRate = this.error / total;
       const unverifiedRate = errorRate + this.unverified / total;
@@ -40,6 +40,8 @@ export default class User {
       if (errorRate > 0.3) {
         this.blockedUntil += 60000;
       }
+
+      this.blockedUntil = Math.min(now + 100000, this.blockedUntil);
     }
   }
 }
