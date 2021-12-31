@@ -29,12 +29,14 @@ const createJobQueue = asyncQueue(createJob);
 export default async function newJob(board: Board, req: FastifyRequest) {
   const { ip, body } = req;
 
-  const blockedUntil = board.jobs.users.get(ip)?.blockedUntil;
-  if (blockedUntil && blockedUntil > new Date().valueOf()) {
-    return {
-      status: 'blocked',
-      blockedUntil,
-    };
+  if (process.env.LUOGU_MOTAKI_BLOCK !== 'false') {
+    const blockedUntil = board.jobs.users.get(ip)?.blockedUntil;
+    if (blockedUntil && blockedUntil > new Date().valueOf()) {
+      return {
+        status: 'blocked',
+        blockedUntil,
+      };
+    }
   }
 
   const { names: bodyNames } = body as any;
