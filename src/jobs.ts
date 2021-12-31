@@ -32,10 +32,10 @@ export default class Jobs {
     }
   }
 
-  markPainted({ x, y, col }: Paint) {
+  markPainted({ x, y, color }: Paint) {
     const job = this.job[x][y];
     if (job === null) return;
-    if (col !== job.col) return;
+    if (color !== job.color) return;
     if (this.paintedCallback.has(job)) {
       const cb = this.paintedCallback.get(job);
       if (cb) cb();
@@ -104,13 +104,13 @@ export default class Jobs {
     return status;
   }
 
-  createJob(x: number, y: number, col: number, ip: string): Job | null {
+  createJob(x: number, y: number, color: number, ip: string): Job | null {
     if (this.job[x][y]) return null;
 
     const job = {
       x,
       y,
-      col,
+      color,
       status: 'success',
       uuid: randomUUID(),
       timeLimit: new Date().valueOf() + TIMELIMIT,

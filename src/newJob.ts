@@ -15,9 +15,9 @@ async function createJob(
   if (!node) return null;
 
   board.avl[name].remove(node);
-  const col = board.planCol[node.x][node.y];
-  if (typeof col === 'number') {
-    return board.jobs.createJob(node.x, node.y, col, ip);
+  const color = board.planCol[node.x][node.y];
+  if (typeof color === 'number') {
+    return board.jobs.createJob(node.x, node.y, color, ip);
   }
   return null;
 }

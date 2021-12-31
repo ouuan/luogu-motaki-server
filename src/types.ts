@@ -14,7 +14,7 @@ export interface Coordinate {
 }
 
 export interface Paint extends Coordinate {
-  col: number;
+  color: number;
 }
 
 export interface Job extends Paint {

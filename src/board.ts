@@ -77,8 +77,8 @@ export default class Board {
     }
   }
 
-  private doPaint({ x, y, col }: Paint) {
-    this.board[x][y] = col;
+  private doPaint({ x, y, color }: Paint) {
+    this.board[x][y] = color;
 
     const { x: oldX, y: oldY } = this.paintLogQueue[this.paintLogIndex];
     if (oldX !== -1) {
@@ -88,8 +88,8 @@ export default class Board {
     this.paintLogQueue[this.paintLogIndex] = { x, y };
     this.paintLogIndex = (this.paintLogIndex + 1) % PAINT_LOG_QUEUE_LENGTH;
 
-    if (this.planCol[x][y] === col) {
-      this.jobs.markPainted({ x, y, col });
+    if (this.planCol[x][y] === color) {
+      this.jobs.markPainted({ x, y, color });
     } else if (this.avlNode[x][y] === null && this.jobs.job[x][y] === null) {
       this.insertAvl(x, y);
     }
@@ -104,7 +104,7 @@ export default class Board {
     for (let x = 0; x < WIDTH; x += 1) {
       for (let y = 0; y < HEIGHT; y += 1) {
         if (this.board[x][y] !== board[x][y]) {
-          this.paint({ x, y, col: board[x][y] });
+          this.paint({ x, y, color: board[x][y] });
         }
       }
     }

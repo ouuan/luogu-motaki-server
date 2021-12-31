@@ -61,12 +61,12 @@
         uuid: string;
         x: number;
         y: number;
-        col: number;
+        color: number;
         timeLimit: number;
     }
     ```
 
-    表示你需要做一个任务，这个任务的 uuid 是 `uuid`，你需要在 `(x, y)` 这个点处画颜色 `col`，你必须在 UNIX 时间戳 `timeLimit`（单位为毫秒）前完成这个任务。
+    表示你需要做一个任务，这个任务的 uuid 是 `uuid`，你需要在 `(x, y)` 这个点处画颜色 `color`，你必须在 UNIX 时间戳 `timeLimit`（单位为毫秒）前完成这个任务。
 
     若所有任务都完成了（画完了），你会收到如下回复：
 

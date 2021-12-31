@@ -18,8 +18,8 @@ export default function connectWs(board: Board, logger: FastifyLoggerInstance) {
   ws.on('message', (data) => {
     const msg = JSON.parse(data.toString());
     if (msg.type === 'paintboard_update') {
-      const { x, y, col } = msg;
-      board.paint({ x, y, col });
+      const { x, y, color } = msg;
+      board.paint({ x, y, color });
     }
   });
 
