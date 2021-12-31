@@ -44,7 +44,7 @@ readFile('motaki-plan.json').then((buffer) => {
 
   server.get('/job/new', (req) => newJob(board, req));
   server.post('/job/finish', (req, rep) => finishJob(jobs, req, rep));
-  server.get('/plan', async () => plan);
+  server.get('/plan', async (_, rep) => rep.header('Access-Control-Allow-Origin', '*').send(plan));
   server.get('/progress', (req) => progress(req, board));
 
   server.listen(process.env.LUOGU_MOTAKI_SERVER_PORT || 15762);
