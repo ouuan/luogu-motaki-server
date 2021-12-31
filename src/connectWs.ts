@@ -4,15 +4,15 @@ import Board from './board';
 import { WS_TIMEOUT, WS_URL } from './constants';
 
 export default function connectWs(board: Board, logger: FastifyLoggerInstance) {
-  const ws = new WebSocket(WS_URL);
+  const ws = new WebSocket(process.env.LUOGU_MOTAKI_WS_URL || WS_URL);
   const waitForStarted = setTimeout(() => ws.terminate(), WS_TIMEOUT);
 
   ws.on('open', () => {
     clearTimeout(waitForStarted);
-    ws.send({
+    ws.send(JSON.stringify({
       type: 'join_channel',
       channel: 'paintboard',
-    });
+    }));
   });
 
   ws.on('message', (data) => {

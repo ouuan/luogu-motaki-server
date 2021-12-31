@@ -26,6 +26,8 @@
 配置通过环境变量修改。
 
 -   `LUOGU_MOTAKI_SERVER_PORT`: 端口，默认为 15762（只是一个随机数而已）。
+-   `LUOGU_MOTAKI_PAINTBOARD_URL`: 绘板的地址，默认为官方地址，可以填其它地址用于测试。
+-   `LUOGU_MOTAKI_WS_URL`: 绘板 WebSocket 的地址，默认为官方地址，可以填其它地址用于测试。
 
 ## API
 

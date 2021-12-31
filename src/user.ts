@@ -28,15 +28,15 @@ export default class User {
       const failRate = unverifiedRate + this.failed / total;
 
       if (failRate > 0.5) {
-        this.blockedUntil += this.failed * 10000;
+        this.blockedUntil += 10000;
       }
 
       if (unverifiedRate > 0.4) {
-        this.blockedUntil += this.unverified * 60000;
+        this.blockedUntil += 60000;
       }
 
       if (errorRate > 0.3) {
-        this.blockedUntil += this.error * 120000;
+        this.blockedUntil += 120000;
       }
     }
   }
