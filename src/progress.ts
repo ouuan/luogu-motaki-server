@@ -18,6 +18,7 @@ export default async function progress(req: FastifyRequest, board: Board) {
   }
 
   const result: TotalProgress = {
+    time: new Date().toISOString(),
     total: {
       finished: 0,
       total: 0,

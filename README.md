@@ -143,6 +143,7 @@
 
     ```typescript
     {
+      time: string;
       total: {
         finished: number;
         total: number;

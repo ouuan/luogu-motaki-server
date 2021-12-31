@@ -31,6 +31,7 @@ export interface Progress {
 }
 
 export interface TotalProgress {
+  time: string;
   total: Progress;
   tasks: {
     [name: string]: Progress;
