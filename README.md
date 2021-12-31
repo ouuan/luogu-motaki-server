@@ -31,7 +31,7 @@
 
 ## API
 
-如果你只是想使用这个东西，你不需要知道它的 API 长啥样。
+如果你只是想使用这个东西，你不需要知道它的 API 长啥样。除了 `/progress`，你可以手动访问来查看绘制进度。
 
 ### `GET /job/new`
 
@@ -57,7 +57,7 @@
 
     ```typescript
     {
-        status: 'success';
+        status: "success";
         uuid: string;
         x: number;
         y: number;
@@ -72,7 +72,7 @@
 
     ```typescript
     {
-        status: 'finished';
+        status: "finished";
     }
     ```
 
@@ -80,7 +80,7 @@
 
     ```typescript
     {
-        status: 'blocked';
+        status: "blocked";
         blockedUntil: number;
     }
     ```
@@ -116,10 +116,10 @@
     `x`, `y`, `uuid` 表示你获取到的任务，`success` 表示任务是否成功完成。
 
 -   回复：
-    
+
     ```typescript
     {
-        status: 'success' | 'failed' | 'unverified' | 'error';
+        status: "success" | "failed" | "unverified" | "error";
         blockedUntil: number;
     }
     ```
@@ -135,3 +135,26 @@
 -   说明：获取 `motaki-plan.json`
 -   参数：无
 -   回复：`motaki-plan.json` 的内容
+
+### `GET /progress`
+
+-   说明：获取进度
+-   参数：无
+-   回复：
+
+    ```typescript
+    {
+      total: {
+        finished: number;
+        total: number;
+      };
+      tasks: {
+        [name: string]: {
+          finished: number;
+          total: number;
+        }
+      };
+    }
+    ```
+
+    或者 "You are querying the progress too frequently!" ，如果访问太频繁。
