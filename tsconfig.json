@@ -19,14 +19,6 @@
     ],
     "lib": [
       "esnext"
-    ],
-    "plugins": [
-      {
-        "transform": "typescript-transform-extensions",
-        "extensions": {
-          ".ts": ".js"
-        }
-      }
     ]
   },
   "include": [

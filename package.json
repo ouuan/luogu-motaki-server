@@ -4,7 +4,6 @@
   "description": "Luogu Motaki 的服务端 —— 洛谷冬日绘板任务分配",
   "bin": "dist/index.js",
   "main": "dist/index.js",
-  "type": "module",
   "repository": "https://github.com/ouuan/luogu-motaki-server",
   "author": "Yufan You <ouuansteve@gmail.com> (https://github.com/ouuan)",
   "license": "Apache-2.0",
@@ -12,8 +11,7 @@
   "scripts": {
     "lint:nofix": "eslint . --ignore-path .gitignore --ext .ts",
     "lint": "pnpm lint:nofix --fix",
-    "build": "tsc",
-    "postinstall": "ts-patch install -s"
+    "build": "tsc --noEmit && node esbuild.js"
   },
   "dependencies": {
     "async": "^3.2.2",
@@ -31,11 +29,10 @@
     "@types/ws": "^8.2.2",
     "@typescript-eslint/eslint-plugin": "^5.8.1",
     "@typescript-eslint/parser": "^5.8.1",
+    "esbuild": "^0.14.9",
     "eslint": "^8.5.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.3",
-    "ts-patch": "^2.0.1",
-    "typescript": "^4.5.4",
-    "typescript-transform-extensions": "^1.0.1"
+    "typescript": "^4.5.4"
   }
 }
