@@ -40,7 +40,7 @@ export default async function newJob(board: Board, req: FastifyRequest) {
   }
 
   const { names: bodyNames } = body as any;
-  const names = Array.isArray(bodyNames) && bodyNames.length ? bodyNames
+  const names = Array.isArray(bodyNames) && bodyNames.length ? shuffle(bodyNames)
     : shuffle(Object.keys(board.avl));
 
   for (const name of names) {
