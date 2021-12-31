@@ -71,7 +71,6 @@ export default class Board {
       const node = this.avlNode[x][y];
       if (node) {
         this.avl[name].remove(node);
-        this.avlNode[x][y] = null;
         this.insertAvl(x, y);
       }
     }

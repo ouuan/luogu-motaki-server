@@ -14,6 +14,8 @@ async function createJob(
   const node = board.avl[name]?.max();
   if (!node) return null;
 
+  // eslint-disable-next-line no-param-reassign
+  board.avlNode[node.x][node.y] = null;
   board.avl[name].remove(node);
   const color = board.planCol[node.x][node.y];
   if (typeof color === 'number') {
