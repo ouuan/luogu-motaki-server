@@ -23,6 +23,7 @@ readFile('motaki-plan.json').then((buffer) => {
             method: request.method,
             path: request.routerPath,
             parameters: request.params,
+            ip: request.ip,
           };
         },
       },
