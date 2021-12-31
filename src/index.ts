@@ -37,8 +37,8 @@ readFile('motaki-plan.json').then((buffer) => {
   const board = new Board(plan, jobs);
   jobs.setBoard(board);
 
-  getBoard(board);
-  setInterval(() => getBoard(board), GET_BOARD_INTERVAL);
+  getBoard(board, server.log);
+  setInterval(() => getBoard(board, server.log), GET_BOARD_INTERVAL);
 
   connectWs(board, server.log);
 
