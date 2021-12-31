@@ -42,7 +42,7 @@ readFile('motaki-plan.json').then((buffer) => {
 
   connectWs(board, server.log);
 
-  server.get('/job/new', (req) => newJob(board, req));
+  server.post('/job/new', (req) => newJob(board, req));
   server.post('/job/finish', (req, rep) => finishJob(jobs, req, rep));
   server.get('/plan', async (_, rep) => rep.header('Access-Control-Allow-Origin', '*').send(plan));
   server.get('/progress', (req) => progress(req, board));

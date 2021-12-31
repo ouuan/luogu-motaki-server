@@ -59,7 +59,6 @@ export default class Board {
           }
           this.taskName[x][y] = name;
           this.planCol[x][y] = parseInt(lines[dx][dy], 32);
-          this.insertAvl(x, y);
         }
       }
     });
@@ -72,6 +71,7 @@ export default class Board {
       const node = this.avlNode[x][y];
       if (node) {
         this.avl[name].remove(node);
+        this.avlNode[x][y] = null;
         this.insertAvl(x, y);
       }
     }

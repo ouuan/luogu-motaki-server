@@ -25,7 +25,7 @@ async function createJob(
 const createJobQueue = asyncQueue(createJob);
 
 export default async function newJob(board: Board, req: FastifyRequest) {
-  const { ip, params } = req;
+  const { ip, body } = req;
 
   const blockedUntil = board.jobs.users.get(ip)?.blockedUntil;
   if (blockedUntil && blockedUntil > new Date().valueOf()) {
@@ -35,8 +35,9 @@ export default async function newJob(board: Board, req: FastifyRequest) {
     };
   }
 
-  const { paramNames } = params as any;
-  const names = Array.isArray(paramNames) ? paramNames : shuffle(Object.keys(board.avl));
+  const { names: bodyNames } = body as any;
+  const names = Array.isArray(bodyNames) && bodyNames.length ? bodyNames
+    : shuffle(Object.keys(board.avl));
 
   for (const name of names) {
     if (typeof name === 'string') {
