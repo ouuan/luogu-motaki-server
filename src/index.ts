@@ -47,7 +47,7 @@ readFile('motaki-plan.json').then((buffer) => {
   server.get('/plan', async (_, rep) => rep.header('Access-Control-Allow-Origin', '*').send(plan));
   server.get('/progress', (req) => progress(req, board));
 
-  server.listen(process.env.LUOGU_MOTAKI_SERVER_PORT || 15762);
+  server.listen(process.env.LUOGU_MOTAKI_SERVER_PORT || 15762, '0.0.0.0');
 }).catch((err) => {
   // eslint-disable-next-line no-console
   console.error('Failed to open motaki-plan.json');
