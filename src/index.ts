@@ -9,6 +9,7 @@ import { GET_BOARD_INTERVAL } from './constants';
 import Jobs from './jobs';
 import User from './user';
 import finishJob from './finishJob';
+import progress from './progress';
 
 readFile('motaki-plan.json').then((buffer) => {
   const plan: Plan = JSON.parse(buffer.toString());
@@ -42,6 +43,7 @@ readFile('motaki-plan.json').then((buffer) => {
   server.get('/job/new', (req) => newJob(board, req));
   server.post('/job/finish', (req, rep) => finishJob(jobs, req, rep));
   server.get('/plan', async () => plan);
+  server.get('/progress', (req) => progress(req, board));
 
   server.listen(process.env.LUOGU_MOTAKI_SERVER_PORT || 15762);
 }).catch((err) => {

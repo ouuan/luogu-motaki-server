@@ -11,6 +11,8 @@ export default class User {
 
   blockedUntil = 0;
 
+  lastProgress = 0;
+
   update(type: JobStatus) {
     this[type] += 1;
 

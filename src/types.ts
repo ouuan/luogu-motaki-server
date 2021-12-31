@@ -24,3 +24,15 @@ export interface Job extends Paint {
 }
 
 export type JobStatus = 'success' | 'failed' | 'unverified' | 'error';
+
+export interface Progress {
+  finished: number;
+  total: number;
+}
+
+export interface TotalProgress {
+  total: Progress;
+  tasks: {
+    [name: string]: Progress;
+  }
+}
