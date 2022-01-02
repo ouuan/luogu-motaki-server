@@ -1,6 +1,6 @@
 import { queue as asyncQueue } from 'async';
 import AVLTree from 'avl';
-import { HEIGHT, PAINT_LOG_QUEUE_LENGTH, WIDTH } from './constants';
+import { COUNT_INTERVAL, HEIGHT, WIDTH } from './constants';
 import Jobs from './jobs';
 import { Coordinate, Paint, Plan } from './types';
 
@@ -13,10 +13,6 @@ export default class Board {
   board = Array.from(Array(WIDTH), () => Array<number>(HEIGHT));
 
   paintCnt = Array.from(Array(WIDTH), () => Array<number>(HEIGHT).fill(0));
-
-  paintLogQueue = Array.from(Array(PAINT_LOG_QUEUE_LENGTH), () => ({ x: -1, y: -1 } as Coordinate));
-
-  paintLogIndex = 0;
 
   paintQueue = asyncQueue(async (p: Paint) => { this.doPaint(p); });
 
@@ -64,8 +60,13 @@ export default class Board {
     });
   }
 
-  private updateCnt(x: number, y: number, newCnt: number) {
-    this.paintCnt[x][y] = newCnt;
+  private doPaint({ x, y, color }: Paint) {
+    this.board[x][y] = color;
+
+    this.paintCnt[x][y] += 1;
+    setTimeout(() => {
+      this.paintCnt[x][y] -= 1;
+    }, COUNT_INTERVAL);
     const name = this.taskName[x][y];
     if (name) {
       const node = this.avlNode[x][y];
@@ -74,18 +75,6 @@ export default class Board {
         this.insertAvl(x, y);
       }
     }
-  }
-
-  private doPaint({ x, y, color }: Paint) {
-    this.board[x][y] = color;
-
-    const { x: oldX, y: oldY } = this.paintLogQueue[this.paintLogIndex];
-    if (oldX !== -1) {
-      this.updateCnt(oldX, oldY, this.paintCnt[oldX][oldY] - 1);
-    }
-    this.updateCnt(x, y, this.paintCnt[x][y] + 1);
-    this.paintLogQueue[this.paintLogIndex] = { x, y };
-    this.paintLogIndex = (this.paintLogIndex + 1) % PAINT_LOG_QUEUE_LENGTH;
 
     if (this.planCol[x][y] === color) {
       this.jobs.markPainted({ x, y, color });

@@ -1,6 +1,6 @@
 import { FastifyRequest } from 'fastify';
 import Board from './board';
-import { COUNT_INTERVAL, HEIGHT, WIDTH } from './constants';
+import { GET_COUNT_INTERVAL, HEIGHT, WIDTH } from './constants';
 import { TotalCount } from './types';
 import User from './user';
 
@@ -11,7 +11,7 @@ export default async function count(req: FastifyRequest, board: Board): Promise<
   const user = users.get(ip);
   if (user) {
     const now = new Date().valueOf();
-    if (now - user.lastProgress < COUNT_INTERVAL) {
+    if (now - user.lastProgress < GET_COUNT_INTERVAL) {
       return 'You are querying the count too frequently!';
     }
     user.lastProgress = now;

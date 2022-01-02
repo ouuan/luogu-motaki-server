@@ -2,11 +2,10 @@ import { randomUUID } from 'crypto';
 import sleep from 'sleep-promise';
 import Board from './board';
 import {
-  GET_BOARD_INTERVAL, HEIGHT, PAINT_LOG_QUEUE_LENGTH, TIMELIMIT, WIDTH,
+  COUNT_INTERVAL,
+  GET_BOARD_INTERVAL, HEIGHT, TIMELIMIT, WIDTH,
 } from './constants';
-import {
-  Coordinate, Job, JobStatus, Paint,
-} from './types';
+import { Job, JobStatus, Paint } from './types';
 import User from './user';
 
 export default class Jobs {
@@ -23,13 +22,6 @@ export default class Jobs {
   board: Board | null = null;
 
   selfPaintCnt = Array.from(Array(WIDTH), () => Array<number>(HEIGHT).fill(0));
-
-  selfPaintCntQueue = Array.from(
-    Array(PAINT_LOG_QUEUE_LENGTH),
-    () => ({ x: -1, y: -1 } as Coordinate),
-  );
-
-  selfPaintCntQueueIndex = 0;
 
   constructor(public users: Map<string, User>) {}
 
@@ -106,13 +98,10 @@ export default class Jobs {
     this.users.get(ip)?.update(status);
 
     if (status === 'success') {
-      const { x: oldX, y: oldY } = this.selfPaintCntQueue[this.selfPaintCntQueueIndex];
-      if (oldX !== -1) {
-        this.selfPaintCnt[oldX][oldY] -= 1;
-      }
       this.selfPaintCnt[x][y] += 1;
-      this.selfPaintCntQueue[this.selfPaintCntQueueIndex] = { x, y };
-      this.selfPaintCntQueueIndex = (this.selfPaintCntQueueIndex + 1) % PAINT_LOG_QUEUE_LENGTH;
+      setTimeout(() => {
+        this.selfPaintCnt[x][y] -= 1;
+      }, COUNT_INTERVAL);
     } else {
       const { board } = this;
       if (board && board.board[x]?.[y] !== board.planCol[x]?.[y]) {

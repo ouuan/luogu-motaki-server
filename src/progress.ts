@@ -1,6 +1,6 @@
 import { FastifyRequest } from 'fastify';
 import Board from './board';
-import { HEIGHT, PROGRESS_INTERVAL, WIDTH } from './constants';
+import { HEIGHT, GET_PROGRESS_INTERVAL, WIDTH } from './constants';
 import { TotalProgress } from './types';
 import User from './user';
 
@@ -11,7 +11,7 @@ export default async function progress(req: FastifyRequest, board: Board) {
   const user = users.get(ip);
   if (user) {
     const now = new Date().valueOf();
-    if (now - user.lastProgress < PROGRESS_INTERVAL) {
+    if (now - user.lastProgress < GET_PROGRESS_INTERVAL) {
       return 'You are querying the progress too frequently!';
     }
     user.lastProgress = now;
