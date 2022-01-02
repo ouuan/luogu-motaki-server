@@ -13,6 +13,8 @@ export default class User {
 
   lastProgress = 0;
 
+  lastCount = 0;
+
   update(type: JobStatus) {
     this[type] += 1;
 

@@ -11,10 +11,10 @@ export default async function count(req: FastifyRequest, board: Board): Promise<
   const user = users.get(ip);
   if (user) {
     const now = new Date().valueOf();
-    if (now - user.lastProgress < GET_COUNT_INTERVAL) {
+    if (now - user.lastCount < GET_COUNT_INTERVAL) {
       return 'You are querying the count too frequently!';
     }
-    user.lastProgress = now;
+    user.lastCount = now;
   }
 
   const result: TotalCount = {
