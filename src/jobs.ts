@@ -33,6 +33,10 @@ export default class Jobs {
     if (this.job[x][y]?.uuid === uuid) {
       this.job[x][y] = null;
     }
+    const { board } = this;
+    if (board && board.board[x]?.[y] !== board.planCol[x]?.[y] && board.avlNode[x]?.[y] === null) {
+      board.insertAvl(x, y);
+    }
   }
 
   markPainted({ x, y, color }: Paint) {
@@ -102,11 +106,6 @@ export default class Jobs {
       setTimeout(() => {
         this.selfPaintCnt[x][y] -= 1;
       }, COUNT_INTERVAL);
-    } else {
-      const { board } = this;
-      if (board && board.board[x]?.[y] !== board.planCol[x]?.[y]) {
-        if (board.avlNode[x][y] === null) board.insertAvl(x, y);
-      }
     }
 
     return status;
