@@ -165,14 +165,14 @@
     ```typescript
     {
         time: string;
-        total: {
+        others: {
             self: number;
-            total: number;
+            others: number;
         };
         tasks: {
             [name: string]: {
                 self: number;
-                total: number;
+                others: number;
             }
         };
     }

@@ -40,7 +40,7 @@ export interface TotalProgress {
 
 export interface Count {
   self: number;
-  total: number;
+  others: number;
 }
 
 export interface TotalCount {

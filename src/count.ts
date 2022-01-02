@@ -21,7 +21,7 @@ export default async function count(req: FastifyRequest, board: Board): Promise<
     time: new Date().toISOString(),
     total: {
       self: 0,
-      total: 0,
+      others: 0,
     },
     tasks: {},
   };
@@ -30,7 +30,7 @@ export default async function count(req: FastifyRequest, board: Board): Promise<
   taskNames.forEach((name) => {
     result.tasks[name] = {
       self: 0,
-      total: 0,
+      others: 0,
     };
   });
 
@@ -38,10 +38,12 @@ export default async function count(req: FastifyRequest, board: Board): Promise<
     for (let y = 0; y < HEIGHT; y += 1) {
       const name = board.taskName[x][y];
       if (name) {
-        result.tasks[name].total += board.paintCnt[x][y];
-        result.total.total += board.paintCnt[x][y];
-        result.tasks[name].self += board.jobs.selfPaintCnt[x][y];
-        result.total.self += board.jobs.selfPaintCnt[x][y];
+        const self = board.jobs.selfPaintCnt[x][y];
+        const others = board.paintCnt[x][y] - self;
+        result.tasks[name].self += self;
+        result.total.self += self;
+        result.tasks[name].others += others;
+        result.total.others += others;
       }
     }
   }
