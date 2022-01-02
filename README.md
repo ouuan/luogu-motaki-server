@@ -32,8 +32,6 @@
 
 ## API
 
-如果你只是想使用这个东西，你不需要知道它的 API 长啥样。除了 `/progress`，你可以手动访问来查看绘制进度。
-
 ### `POST /job/new`
 
 -   说明：获取一个新任务。
@@ -158,3 +156,26 @@
     ```
 
     或者 "You are querying the progress too frequently!" ，如果访问太频繁。
+
+### `GET /count`
+
+-   说明：获取绘制次数统计
+-   回复：
+
+    ```typescript
+    {
+        time: string;
+        total: {
+            self: number;
+            total: number;
+        };
+        tasks: {
+            [name: string]: {
+                self: number;
+                total: number;
+            }
+        };
+    }
+    ```
+
+    或者 "You are querying the count too frequently!" ，如果访问太频繁。

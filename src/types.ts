@@ -37,3 +37,16 @@ export interface TotalProgress {
     [name: string]: Progress;
   }
 }
+
+export interface Count {
+  self: number;
+  total: number;
+}
+
+export interface TotalCount {
+  time: string;
+  total: Count;
+  tasks: {
+    [name: string]: Count;
+  }
+}

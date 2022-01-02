@@ -7,3 +7,4 @@ export const PAINT_LOG_QUEUE_LENGTH = 100000;
 export const GET_BOARD_INTERVAL = 30000;
 export const WS_TIMEOUT = 10000;
 export const PROGRESS_INTERVAL = 5000;
+export const COUNT_INTERVAL = 5000;
