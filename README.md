@@ -178,4 +178,6 @@
     }
     ```
 
+    其中 `self` 和 `others` 表示由过去 10 分钟的数据取平均值得到的由/不由本服务端绘制的 token 数量。
+
     或者 "You are querying the count too frequently!" ，如果访问太频繁。

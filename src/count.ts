@@ -1,7 +1,12 @@
 import { FastifyRequest } from 'fastify';
 import Board from './board';
-import { GET_COUNT_INTERVAL, HEIGHT, WIDTH } from './constants';
-import { TotalCount } from './types';
+import {
+  COUNT_TO_TOKEN_NUMBER,
+  GET_COUNT_INTERVAL,
+  HEIGHT,
+  WIDTH,
+} from './constants';
+import { Count, TotalCount } from './types';
 import User from './user';
 
 export default async function count(req: FastifyRequest, board: Board): Promise<string|TotalCount> {
@@ -47,6 +52,16 @@ export default async function count(req: FastifyRequest, board: Board): Promise<
       }
     }
   }
+
+  function convertToTokenNumber(cnt: Count) {
+    // eslint-disable-next-line no-param-reassign
+    cnt.self = COUNT_TO_TOKEN_NUMBER;
+    // eslint-disable-next-line no-param-reassign
+    cnt.others *= COUNT_TO_TOKEN_NUMBER;
+  }
+
+  convertToTokenNumber(result.total);
+  Object.values(result.tasks).forEach((cnt) => convertToTokenNumber(cnt));
 
   return result;
 }

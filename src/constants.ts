@@ -8,3 +8,5 @@ export const WS_TIMEOUT = 10000;
 export const GET_PROGRESS_INTERVAL = 5000;
 export const GET_COUNT_INTERVAL = 5000;
 export const COUNT_INTERVAL = 10 * 60 * 1000;
+export const CD = 30000;
+export const COUNT_TO_TOKEN_NUMBER = CD / COUNT_INTERVAL;
