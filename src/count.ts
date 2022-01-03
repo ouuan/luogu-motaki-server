@@ -9,12 +9,13 @@ import {
 } from './constants';
 import { Count, TotalCount } from './types';
 import User from './user';
+import { dateTimeString } from './utils';
 
 const startTime = new Date().valueOf();
 
 export default async function count(req: FastifyRequest, board: Board): Promise<string|TotalCount> {
   if (new Date().valueOf() - startTime < COUNT_INTERVAL) {
-    return `Please wait until ${new Date(startTime + COUNT_INTERVAL).toLocaleTimeString()}`;
+    return `Please wait until ${dateTimeString(startTime + COUNT_INTERVAL)}`;
   }
 
   const { ip } = req;
@@ -30,7 +31,7 @@ export default async function count(req: FastifyRequest, board: Board): Promise<
   }
 
   const result: TotalCount = {
-    time: new Date().toISOString(),
+    time: dateTimeString(),
     total: {
       self: 0,
       others: 0,

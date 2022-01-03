@@ -3,6 +3,7 @@ import Board from './board';
 import { HEIGHT, GET_PROGRESS_INTERVAL, WIDTH } from './constants';
 import { TotalProgress } from './types';
 import User from './user';
+import { dateTimeString } from './utils';
 
 export default async function progress(req: FastifyRequest, board: Board) {
   const { ip } = req;
@@ -18,7 +19,7 @@ export default async function progress(req: FastifyRequest, board: Board) {
   }
 
   const result: TotalProgress = {
-    time: new Date().toISOString(),
+    time: dateTimeString(),
     total: {
       finished: 0,
       total: 0,

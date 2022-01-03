@@ -66,5 +66,7 @@ module.exports = {
     'max-statements-per-line': ['error', { max: 1 }],
 
     'no-restricted-syntax': ['error', 'ForInStatement', 'LabeledStatement', 'WithStatement'],
+
+    'import/prefer-default-export': 0,
   },
 };

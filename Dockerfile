@@ -2,6 +2,8 @@ FROM node:16
 
 WORKDIR /app
 
+RUN ln -s -f /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
 RUN npm i -g pnpm
 
 COPY package.json pnpm-lock.yaml ./
