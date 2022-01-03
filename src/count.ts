@@ -1,6 +1,7 @@
 import { FastifyRequest } from 'fastify';
 import Board from './board';
 import {
+  COUNT_INTERVAL,
   COUNT_TO_TOKEN_NUMBER,
   GET_COUNT_INTERVAL,
   HEIGHT,
@@ -9,7 +10,13 @@ import {
 import { Count, TotalCount } from './types';
 import User from './user';
 
+const startTime = new Date().valueOf();
+
 export default async function count(req: FastifyRequest, board: Board): Promise<string|TotalCount> {
+  if (new Date().valueOf() - startTime < COUNT_INTERVAL) {
+    return `Please wait until ${new Date(startTime + COUNT_INTERVAL).toLocaleTimeString()}`;
+  }
+
   const { ip } = req;
   const { users } = board.jobs;
   if (!users.has(ip)) users.set(ip, new User());
