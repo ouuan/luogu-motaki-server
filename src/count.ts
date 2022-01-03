@@ -63,9 +63,9 @@ export default async function count(req: FastifyRequest, board: Board): Promise<
 
   function convertToTokenNumber(cnt: Count) {
     // eslint-disable-next-line no-param-reassign
-    cnt.self *= COUNT_TO_TOKEN_NUMBER;
+    cnt.self = Math.round(cnt.self * 100 * COUNT_TO_TOKEN_NUMBER) / 100;
     // eslint-disable-next-line no-param-reassign
-    cnt.others *= COUNT_TO_TOKEN_NUMBER;
+    cnt.others = Math.round(cnt.others * 100 * COUNT_TO_TOKEN_NUMBER) / 100;
   }
 
   convertToTokenNumber(result.total);
